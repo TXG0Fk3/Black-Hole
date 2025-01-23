@@ -19,6 +19,11 @@ namespace Black_Hole.Services
             this.window = window;
         }
 
+        public int GetSystemDPI()
+        {
+            return GetDpiForWindow(GetWindowHandleForCurrentWindow(window));
+        }
+
         public void SetWindowMinMaxSize(POINT? minWindowSize = null, POINT? maxWindowSize = null)
         {
             this.minWindowSize = minWindowSize;

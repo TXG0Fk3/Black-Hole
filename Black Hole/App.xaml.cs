@@ -2,6 +2,7 @@
 using Microsoft.UI.Xaml.Media;
 using Black_Hole.Services;
 using Black_Hole.Views;
+using Windows.Graphics;
 
 
 namespace Black_Hole
@@ -23,14 +24,18 @@ namespace Black_Hole
             {
                 SystemBackdrop = new MicaBackdrop(),
                 ExtendsContentIntoTitleBar = true,
-                Title = "Yukari",
+                Title = "Black Hole",
                 Content = new MainPage()
             };
 
-            // MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
+            MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
 
             var win32WindowService = new Win32WindowService(MainWindow);
-            win32WindowService.SetWindowMinMaxSize(new Win32WindowService.POINT() { x = 600, y = 500 });
+            win32WindowService.SetWindowMinMaxSize(new Win32WindowService.POINT() { x = 430, y = 680 });
+
+            // Tamanho inicial da janela
+            var scaleFactor = win32WindowService.GetSystemDPI() / 96.0;
+            MainWindow.AppWindow.Resize(new SizeInt32((int)(430 * scaleFactor), (int)(680 * scaleFactor)));
 
             MainWindow.Activate();
         }

@@ -8,18 +8,81 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView x:Name="NavigationViewControl" PaneDisplayMode="Top">
-        <NavigationView.MenuItems>
-            <NavigationViewItem
-                Content="Send"
-                Icon="Upload"
-                IsSelected="True"
-                Tag="Black_Hole.Views.SendPage" />
-            <NavigationViewItem
-                Content="Receive"
-                Icon="Download"
-                Tag="Black_Hole.Views.ReceivePage" />
-        </NavigationView.MenuItems>
-        <Frame x:Name="ContentFrame" />
-    </NavigationView>
+    <Grid x:Name="rootElement" RowDefinitions="32, *, 80">
+
+        <!--  Header  -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <BitmapIcon
+                Width="20"
+                Margin="15,0,0,0"
+                VerticalAlignment="Center"
+                ShowAsMonochrome="False"
+                UriSource="/Assets/Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+            <TextBlock
+                Margin="5,0,0,2"
+                VerticalAlignment="Center"
+                Text="Black Hole" />
+        </StackPanel>
+
+        <!--  Page Content  -->
+        <Grid Grid.Row="1" RowDefinitions="Auto, *" />
+
+        <!--  Footer  -->
+        <Grid
+            Grid.Row="2"
+            Width="380"
+            Margin="10"
+            Padding="10"
+            Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            ColumnDefinitions="120, 124, *, 40, 40"
+            CornerRadius="8">
+
+            <ToggleButton
+                Grid.Column="0"
+                Width="120"
+                Height="35">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE898;" />
+                    <TextBlock Margin="0,2,0,0" Text="Send" />
+                </StackPanel>
+            </ToggleButton>
+
+            <ToggleButton
+                Grid.Column="1"
+                Width="120"
+                Height="35"
+                Margin="4,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <FontIcon Glyph="&#xE896;" />
+                    <TextBlock Margin="0,2,0,0" Text="Receive" />
+                </StackPanel>
+            </ToggleButton>
+
+
+            <AppBarSeparator Grid.Column="2" HorizontalAlignment="Center" />
+
+            <Button
+                Grid.Column="3"
+                Width="35"
+                Height="35"
+                Padding="0"
+                HorizontalAlignment="Center"
+                ToolTipService.ToolTip="Help">
+                <FontIcon Glyph="&#xE897;" />
+            </Button>
+
+            <Button
+                Grid.Column="4"
+                Width="35"
+                Height="35"
+                Padding="0"
+                HorizontalAlignment="Center"
+                ToolTipService.ToolTip="Settings">
+                <FontIcon Glyph="&#xE713;" />
+            </Button>
+        </Grid>
+
+    </Grid>
 </Page>
