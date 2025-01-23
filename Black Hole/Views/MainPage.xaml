@@ -25,10 +25,17 @@
         </StackPanel>
 
         <!--  Page Content  -->
-        <Grid Grid.Row="1" RowDefinitions="Auto, *" />
+        <Frame x:Name="ContentFrame" Grid.Row="1">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition />
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
 
         <!--  Footer  -->
         <Grid
+            x:Name="Footer"
             Grid.Row="2"
             Width="380"
             Margin="10"
@@ -42,7 +49,10 @@
             <ToggleButton
                 Grid.Column="0"
                 Width="120"
-                Height="35">
+                Height="35"
+                Click="ToggleButton_Click"
+                IsChecked="True"
+                Tag="Black_Hole.Views.SendPage">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <FontIcon Glyph="&#xE898;" />
                     <TextBlock Margin="0,2,0,0" Text="Send" />
@@ -53,7 +63,9 @@
                 Grid.Column="1"
                 Width="120"
                 Height="35"
-                Margin="4,0,0,0">
+                Margin="4,0,0,0"
+                Click="ToggleButton_Click"
+                Tag="Black_Hole.Views.ReceivePage">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <FontIcon Glyph="&#xE896;" />
                     <TextBlock Margin="0,2,0,0" Text="Receive" />
@@ -63,25 +75,30 @@
 
             <AppBarSeparator Grid.Column="2" HorizontalAlignment="Center" />
 
-            <Button
+
+            <ToggleButton
                 Grid.Column="3"
                 Width="35"
                 Height="35"
                 Padding="0"
                 HorizontalAlignment="Center"
+                Click="ToggleButton_Click"
+                Tag="Black_Hole.Views.HelpPage"
                 ToolTipService.ToolTip="Help">
                 <FontIcon Glyph="&#xE897;" />
-            </Button>
+            </ToggleButton>
 
-            <Button
+            <ToggleButton
                 Grid.Column="4"
                 Width="35"
                 Height="35"
                 Padding="0"
                 HorizontalAlignment="Center"
+                Click="ToggleButton_Click"
+                Tag="Black_Hole.Views.SettingsPage"
                 ToolTipService.ToolTip="Settings">
                 <FontIcon Glyph="&#xE713;" />
-            </Button>
+            </ToggleButton>
         </Grid>
 
     </Grid>
