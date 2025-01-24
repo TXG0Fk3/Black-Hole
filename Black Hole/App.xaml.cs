@@ -30,6 +30,7 @@ namespace Black_Hole
 
             MainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
 
+            // Tamanho mínimo da janela
             var win32WindowService = new Win32WindowService(MainWindow);
             win32WindowService.SetWindowMinMaxSize(new Win32WindowService.POINT() { x = 430, y = 600 });
 
