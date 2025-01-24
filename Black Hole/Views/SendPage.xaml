@@ -6,8 +6,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Black_Hole.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        RowDefinitions="Auto, Auto, Auto, Auto"
+        RowSpacing="8">
+        <FontIcon
+            Grid.Row="0"
+            Margin="0,0,0,30"
+            HorizontalAlignment="Center"
+            FontSize="120"
+            Glyph="&#xE898;" />
+        <TextBlock
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            FontSize="36"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="Send File" />
+        <Button
+            Grid.Row="2"
+            Width="200"
+            Height="45"
+            HorizontalAlignment="Center"
+            Content="Select File"
+            Style="{StaticResource AccentButtonStyle}" />
+        <Button
+            Grid.Row="3"
+            Width="200"
+            Height="45"
+            HorizontalAlignment="Center"
+            Content="Select Folder" />
+    </Grid>
 </Page>
