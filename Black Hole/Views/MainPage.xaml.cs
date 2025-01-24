@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using System;
 using System.Linq;
 
 
@@ -10,6 +11,7 @@ namespace Black_Hole.Views
         public MainPage()
         {
             this.InitializeComponent();
+            ContentFrame.Navigate(typeof(SendPage), null);
         }
 
         private void ToggleButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -24,6 +26,8 @@ namespace Black_Hole.Views
                     i.IsChecked = false;
                 }
             }
+
+            ContentFrame.Navigate(Type.GetType(TB_Sender.Tag.ToString()), null);
         }
     }
 }
