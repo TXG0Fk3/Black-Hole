@@ -18,7 +18,10 @@
 	    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Views\DonePage.xaml" />
     <None Remove="Views\HelpPage.xaml" />
+    <None Remove="Views\PendingPage.xaml" />
+    <None Remove="Views\ProgressPage.xaml" />
     <None Remove="Views\ReceivePage.xaml" />
     <None Remove="Views\SendPage.xaml" />
     <None Remove="Views\SettingsPage.xaml" />
@@ -42,6 +45,24 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\DonePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\ProgressPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\PendingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
