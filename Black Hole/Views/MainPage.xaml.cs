@@ -1,3 +1,4 @@
+using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
@@ -11,7 +12,8 @@ namespace Black_Hole.Views
         public MainPage()
         {
             this.InitializeComponent();
-            ContentFrame.Navigate(typeof(SendPage), null);
+            NavigationService.Instance.Initialize(ContentFrame);
+            NavigationService.Instance.NavigateTo(typeof(SendPage));
         }
 
         private void ToggleButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -19,7 +21,7 @@ namespace Black_Hole.Views
             ToggleButton TB_Sender = sender as ToggleButton;
             TB_Sender.IsChecked = true;
 
-            foreach (ToggleButton i in Footer.Children.OfType<ToggleButton>())
+            foreach (ToggleButton i in (TB_Sender.Parent as Grid).Children.OfType<ToggleButton>())
             {
                 if (i != TB_Sender)
                 {
@@ -27,7 +29,7 @@ namespace Black_Hole.Views
                 }
             }
 
-            ContentFrame.Navigate(Type.GetType(TB_Sender.Tag.ToString()), null);
+            NavigationService.Instance.NavigateTo(Type.GetType(TB_Sender.Tag.ToString()));
         }
     }
 }
