@@ -35,7 +35,6 @@
 
         <!--  Footer  -->
         <Grid
-            x:Name="Footer"
             Grid.Row="2"
             Width="380"
             Margin="10"
