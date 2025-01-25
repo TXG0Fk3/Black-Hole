@@ -1,8 +1,11 @@
 using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Media.Animation;
 using System;
+using System.Collections;
 using System.Linq;
+using System.Reflection;
 
 
 namespace Black_Hole.Views
@@ -13,23 +16,37 @@ namespace Black_Hole.Views
         {
             this.InitializeComponent();
             NavigationService.Instance.Initialize(ContentFrame);
-            NavigationService.Instance.NavigateTo(typeof(SendPage));
+            NavigationService.Instance.NavigateTo(typeof(SendPage), null);
         }
 
         private void ToggleButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            ToggleButton TB_Sender = sender as ToggleButton;
-            TB_Sender.IsChecked = true;
+            ToggleButton newSelectedToggleButton = sender as ToggleButton;
 
-            foreach (ToggleButton i in (TB_Sender.Parent as Grid).Children.OfType<ToggleButton>())
+            ToggleButton[] footerNavigationToggleButtons = (newSelectedToggleButton.Parent as Grid).Children
+                .OfType<ToggleButton>()
+                .ToArray();
+
+            ToggleButton? previousSelectedNavigationToggleButton = footerNavigationToggleButtons
+                .FirstOrDefault(TB => TB.IsChecked == true && TB != newSelectedToggleButton);
+
+            if (previousSelectedNavigationToggleButton != null) // Se for NULL significa que o usuário só selecionou um botão que já estava selecionado
             {
-                if (i != TB_Sender)
+                NavigationTransitionInfo transitionInfo = new SlideNavigationTransitionInfo()
                 {
-                    i.IsChecked = false;
-                }
-            }
+                    Effect = Array.IndexOf(footerNavigationToggleButtons, newSelectedToggleButton)
+                        < Array.IndexOf(footerNavigationToggleButtons, previousSelectedNavigationToggleButton)
+                        ? SlideNavigationTransitionEffect.FromLeft
+                        : SlideNavigationTransitionEffect.FromRight
 
-            NavigationService.Instance.NavigateTo(Type.GetType(TB_Sender.Tag.ToString()));
+                };
+
+                previousSelectedNavigationToggleButton.IsChecked = false;
+
+                NavigationService.Instance.NavigateTo(Type.GetType(newSelectedToggleButton.Tag.ToString()), null, transitionInfo);
+            }    
+            
+            newSelectedToggleButton.IsChecked = true;
         }
     }
 }
