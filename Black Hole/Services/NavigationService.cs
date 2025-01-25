@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,16 +32,15 @@ namespace Black_Hole.Services
             _frame = frame;
         }
 
-        public void NavigateTo(Type pageType, object parameter = null)
+        public void NavigateTo(Type pageType, object parameter, NavigationTransitionInfo transitionInfo = null)
         {
-            _frame.Navigate(pageType, parameter);
-        }
-
-        public void GoBack()
-        {
-            if (_frame.CanGoBack)
+            if (transitionInfo == null)
             {
-                _frame.GoBack();
+                _frame.Navigate(pageType, parameter);
+            }
+            else
+            {
+                _frame.Navigate(pageType, parameter, transitionInfo);
             }
         }
     }
