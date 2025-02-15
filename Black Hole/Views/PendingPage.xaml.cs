@@ -19,6 +19,7 @@ namespace Black_Hole.Views
         {
             base.OnNavigatedTo(e);
 
+            // O parâmetro é uma tupla que contém o tipo de espera e o caminho para o arquivo
             if (e.Parameter is Tuple<PendingType, string> parameter)
             {
                 _pageContext = parameter;
