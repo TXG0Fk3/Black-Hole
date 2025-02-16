@@ -1,8 +1,12 @@
 using Black_Hole.Enums;
+using Black_Hole.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.IO;
 
 namespace Black_Hole.Views
 {
@@ -36,7 +40,17 @@ namespace Black_Hole.Views
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
                     Title.Text = "Your Transmission Code";
-                    FileDescription.Text = "Test";
+                    FileDescription.Text = "ExampleFile.zip";
+
+                    QrOrIcon.Child = new Image
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Width = 200,
+                        Height = 200,
+                        Stretch = Stretch.Fill,
+                        Source = new BitmapImage(new Uri(QrCodeHelper.GenerateQrCode("ExampleCode", Path.GetTempPath() + "BlackHole")))
+                    };
 
                     var stackPanel = new StackPanel()
                     {
@@ -88,8 +102,8 @@ namespace Black_Hole.Views
 
                 case PendingType.ReceiverRespondingToConfirmation:
                     Title.Text = "Accept File?";
-                    FileDescription.Text = "Test";
-
+                    FileDescription.Text = "ExampleFile.zip";
+                    
                     PageVariableContent.Children.Add
                     (
                         new Button()
