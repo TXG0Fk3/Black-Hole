@@ -36,7 +36,7 @@
             HorizontalAlignment="Center"
             FontSize="16"
             Style="{StaticResource BodyTextBlockStyle}"
-            Text="&quot;The Elder Scrolls V: Skyrim.zip&quot; 12GB." />
+            Text="" />
 
         <StackPanel
             x:Name="PageVariableContent"
