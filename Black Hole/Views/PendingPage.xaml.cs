@@ -30,18 +30,18 @@ namespace Black_Hole.Views
             {
                 _pageContext = parameter.Item1;
                 _magicWarmholeService = parameter.Item2;
-                ProcessPageContext();
+                LoadPageContext();
             }
         }
 
         // Altera a page de acordo com o tipo de espera (send ou receive)
-        private void ProcessPageContext()
+        private void LoadPageContext()
         {
             switch (_pageContext)
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
                     Title.Text = "Your Transmission Code";
-                    FileDescription.Text = "ExampleFile.zip";
+                    FileDescription.Text = $"{_magicWarmholeService.FileName} {_magicWarmholeService.FileSize}MB";
 
                     QrOrIcon.Child = new Image
                     {
@@ -99,37 +99,56 @@ namespace Black_Hole.Views
                         }
                     );
 
+                    var cancelButtonSender = new Button()
+                    {
+                        Margin = new Thickness(0, 20, 0, 0),
+                        Width = 120,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Content = "Cancel"
+                    };
+                    cancelButtonSender.Click += CancelButton_Click;
+                    PageVariableContent.Children.Add(cancelButtonSender);
+
                     break;
 
                 case PendingType.ReceiverRespondingToConfirmation:
                     Title.Text = "Accept File?";
-                    FileDescription.Text = "ExampleFile.zip";
-                    
-                    PageVariableContent.Children.Add
-                    (
-                        new Button()
-                        {
-                            Width = 200,
-                            Height = 45,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            Content = "Accept",
-                            Style = (Style)Application.Current.Resources["AccentButtonStyle"]
-                        }
-                    );
+                    FileDescription.Text = $"{_magicWarmholeService.FileName} {_magicWarmholeService.FileSize}MB"; // Vai causar uma exceção
 
-                    PageVariableContent.Children.Add
-                    (
-                        new Button()
-                        {
-                            Width = 200,
-                            Height = 45,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            Content = "Cancel"
-                        }
-                    );
+                    var acceptButtonReceiver = new Button()
+                    {
+                        Width = 200,
+                        Height = 45,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Content = "Accept",
+                        Style = (Style)Application.Current.Resources["AccentButtonStyle"]
+                    };
+                    acceptButtonReceiver.Click += AcceptButton_Click;
+                    PageVariableContent.Children.Add(acceptButtonReceiver);
+
+                    var cancelButtonReceiver = new Button()
+                    {
+                        Width = 200,
+                        Height = 45,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Content = "Cancel"
+                    };
+                    cancelButtonReceiver.Click += CancelButton_Click;
+                    PageVariableContent.Children.Add(cancelButtonReceiver);
 
                     break;
             }
+        }
+
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
+        {
+            // To Do: Implementar a lógica para aceitar o arquivo
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            // To Do: Implementar a lógica para cancelar o arquivo
         }
     }
 }
