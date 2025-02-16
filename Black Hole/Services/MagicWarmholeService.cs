@@ -4,8 +4,8 @@ namespace Black_Hole.Services
 {
     internal class MagicWarmholeService
     {
-        private string _filePath;
-        private string _code;
+        public string FilePath { get; private set; }
+        public string Code { get; private set; }
         public string FileName { get; private set; }
         public string FileSize { get; private set; }
 
@@ -13,15 +13,15 @@ namespace Black_Hole.Services
         {
             if (File.Exists(filePathOrCode))
             {
-                _filePath = filePathOrCode;
+                FilePath = filePathOrCode;
 
-                var fileInfo = new FileInfo(_filePath);
+                var fileInfo = new FileInfo(FilePath);
                 FileName = fileInfo.Name;
                 FileSize = fileInfo.Length.ToString();
             }
             else
             {
-                _code = filePathOrCode;
+                Code = filePathOrCode;
                 // To do: Implementar a lógica para coletar informações do arquivo a ser recebido
             }
         }
