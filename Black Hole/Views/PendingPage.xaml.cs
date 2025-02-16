@@ -13,7 +13,8 @@ namespace Black_Hole.Views
 {
     public sealed partial class PendingPage : Page
     {
-        private Tuple<PendingType, MagicWarmholeService> _pageContext;
+        private PendingType _pageContext;
+        private MagicWarmholeService _magicWarmholeService;
 
         public PendingPage()
         {
@@ -27,7 +28,8 @@ namespace Black_Hole.Views
             // O parâmetro é uma tupla que contém o tipo de espera e o caminho para o arquivo
             if (e.Parameter is Tuple<PendingType, MagicWarmholeService> parameter)
             {
-                _pageContext = parameter;
+                _pageContext = parameter.Item1;
+                _magicWarmholeService = parameter.Item2;
                 ProcessPageContext();
             }
         }
@@ -35,7 +37,7 @@ namespace Black_Hole.Views
         // Altera a page de acordo com o tipo de espera (send ou receive)
         private void ProcessPageContext()
         {
-            switch (_pageContext.Item1)
+            switch (_pageContext)
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
                     Title.Text = "Your Transmission Code";
