@@ -7,7 +7,7 @@ namespace Black_Hole.Services
         public string FilePath { get; private set; }
         public string Code { get; private set; }
         public string FileName { get; private set; }
-        public string FileSize { get; private set; }
+        public double FileSize { get; private set; }
 
         public MagicWarmholeService(string filePathOrCode)
         {
@@ -17,7 +17,7 @@ namespace Black_Hole.Services
 
                 var fileInfo = new FileInfo(FilePath);
                 FileName = fileInfo.Name;
-                FileSize = fileInfo.Length.ToString();
+                FileSize = fileInfo.Length / 1000000; // Converte em MB
             }
             else
             {
