@@ -1,5 +1,6 @@
 using Black_Hole.Enums;
 using Black_Hole.Helpers;
+using Black_Hole.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -12,7 +13,7 @@ namespace Black_Hole.Views
 {
     public sealed partial class PendingPage : Page
     {
-        private Tuple<PendingType, String> _pageContext;
+        private Tuple<PendingType, MagicWarmholeService> _pageContext;
 
         public PendingPage()
         {
@@ -24,7 +25,7 @@ namespace Black_Hole.Views
             base.OnNavigatedTo(e);
 
             // O parâmetro é uma tupla que contém o tipo de espera e o caminho para o arquivo
-            if (e.Parameter is Tuple<PendingType, string> parameter)
+            if (e.Parameter is Tuple<PendingType, MagicWarmholeService> parameter)
             {
                 _pageContext = parameter;
                 ProcessPageContext();
@@ -34,8 +35,6 @@ namespace Black_Hole.Views
         // Altera a page de acordo com o tipo de espera (send ou receive)
         private void ProcessPageContext()
         {
-            string value = _pageContext.Item2;
-
             switch (_pageContext.Item1)
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
