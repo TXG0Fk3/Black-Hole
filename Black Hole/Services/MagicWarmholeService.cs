@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Black_Hole.Services
 {
@@ -17,7 +18,7 @@ namespace Black_Hole.Services
 
                 var fileInfo = new FileInfo(FilePath);
                 FileName = fileInfo.Name;
-                FileSize = fileInfo.Length / 1000000; // Converte em MB
+                FileSize = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
             }
             else
             {
