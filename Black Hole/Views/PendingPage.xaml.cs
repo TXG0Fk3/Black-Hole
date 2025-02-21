@@ -14,7 +14,7 @@ namespace Black_Hole.Views
     public sealed partial class PendingPage : Page
     {
         private PendingType _pageContext;
-        private MagicWarmholeService _magicWarmholeService;
+        private MagicWormholeService _magicWormholeService;
 
         public PendingPage()
         {
@@ -26,10 +26,10 @@ namespace Black_Hole.Views
             base.OnNavigatedTo(e);
 
             // O parâmetro é uma tupla que contém o tipo de espera e o caminho para o arquivo
-            if (e.Parameter is Tuple<PendingType, MagicWarmholeService> parameter)
+            if (e.Parameter is Tuple<PendingType, MagicWormholeService> parameter)
             {
                 _pageContext = parameter.Item1;
-                _magicWarmholeService = parameter.Item2;
+                _magicWormholeService = parameter.Item2;
                 LoadPageContext();
             }
         }
@@ -41,7 +41,7 @@ namespace Black_Hole.Views
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
                     Title.Text = "Your Transmission Code";
-                    FileDescription.Text = $"{_magicWarmholeService.FileName} {_magicWarmholeService.FileSize}MB";
+                    FileDescription.Text = $"{_magicWormholeService.FileName} {_magicWormholeService.FileSize}MB";
 
                     QrOrIcon.Child = new Image
                     {
@@ -114,7 +114,7 @@ namespace Black_Hole.Views
 
                 case PendingType.ReceiverRespondingToConfirmation:
                     Title.Text = "Accept File?";
-                    FileDescription.Text = $"{_magicWarmholeService.FileName} {_magicWarmholeService.FileSize}MB"; // Vai causar uma exceção
+                    FileDescription.Text = $"{_magicWormholeService.FileName} {_magicWormholeService.FileSize}MB"; // Vai causar uma exceção
 
                     var acceptButtonReceiver = new Button()
                     {
