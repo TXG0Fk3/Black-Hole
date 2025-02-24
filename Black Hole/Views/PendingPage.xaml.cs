@@ -50,7 +50,7 @@ namespace Black_Hole.Views
                         Width = 200,
                         Height = 200,
                         Stretch = Stretch.Fill,
-                        Source = new BitmapImage(new Uri(QrCodeHelper.GenerateQrCode("ExampleCode", Path.GetTempPath() + "BlackHole")))
+                        Source = new BitmapImage(new Uri(QrCodeHelper.GenerateQrCode(_magicWormholeService.Code, Path.GetTempPath() + "BlackHole")))
                     };
 
                     var stackPanel = new StackPanel()
@@ -68,7 +68,7 @@ namespace Black_Hole.Views
                         {
                             Width = 260,
                             IsReadOnly = true,
-                            Text = "test"
+                            Text = _magicWormholeService.Code
                         }
                     );
 
