@@ -31,11 +31,13 @@
             Height="45"
             HorizontalAlignment="Center"
             Content="Select File"
+            Click="FileButton_Click"
             Style="{StaticResource AccentButtonStyle}" />
         <Button
             Grid.Row="3"
             Width="200"
             Height="45"
+            Click="FolderButton_Click"
             HorizontalAlignment="Center"
             Content="Select Folder" />
     </Grid>
