@@ -32,19 +32,28 @@ namespace Black_Hole.Services
                 var fileInfo = new FileInfo(FilePath);
                 FileName = fileInfo.Name;
                 FileSize = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
+
+                ProcessStart($"send {FilePath}");
+
+                for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
+                {
+                    var line = _process.StandardError.ReadLine();
+                    if (i == 1)
+                    {
+                        Code = line.Split(':')[1].Trim();
+                    }
+                }
             }
             else
             {
                 Code = filePathOrCode;
 
-                _startInfo.Arguments = $"receive {Code}";
-                _process = new Process { StartInfo = _startInfo };
-                _process.Start();
+                ProcessStart($"receive {Code}");
 
-                var receiveInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
+                var receivedFileInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
 
-                FileName = receiveInfo.Split(':')[1].Trim();
-                FileSize = double.Parse(receiveInfo.Split('(')[1].Split(" ")[0]);
+                FileName = receivedFileInfo.Split(':')[1].Trim();
+                FileSize = double.Parse(receivedFileInfo.Split('(')[1].Split(" ")[0]);
             }
         }
 
