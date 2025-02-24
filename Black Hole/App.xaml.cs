@@ -11,6 +11,11 @@ namespace Black_Hole
     {
         private static Window? _mainWindow;
 
+        public static Window MainWindow
+        {
+            get => _mainWindow;
+        }
+
         public App()
         {
             this.InitializeComponent();
