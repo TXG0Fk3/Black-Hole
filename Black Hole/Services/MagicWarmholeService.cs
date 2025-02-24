@@ -20,6 +20,7 @@ namespace Black_Hole.Services
             UseShellExecute = false,
             CreateNoWindow = true,
         };
+
         private Process _process;
 
         public MagicWormholeService(string filePathOrCode)
@@ -35,13 +36,12 @@ namespace Black_Hole.Services
             else
             {
                 Code = filePathOrCode;
-                // To do: Implementar a lógica para coletar informações do arquivo a ser recebido
 
                 _startInfo.Arguments = $"receive {Code}";
                 _process = new Process { StartInfo = _startInfo };
                 _process.Start();
 
-                var receiveInfo = _process.StandardError.ReadLine();
+                var receiveInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
 
                 FileName = receiveInfo.Split(':')[1].Trim();
                 FileSize = double.Parse(receiveInfo.Split('(')[1].Split(" ")[0]);
@@ -58,5 +58,11 @@ namespace Black_Hole.Services
             // To Do: Implementar a lógica para receber o arquivo
         }
 
+        private void ProcessStart(string args)
+        {
+            _startInfo.Arguments = args;
+            _process = new Process { StartInfo = _startInfo };
+            _process.Start();
+        }
     }
 }
