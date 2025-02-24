@@ -141,6 +141,7 @@ namespace Black_Hole.Views
             }
         }
 
+
         private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
             // To Do: Implementar a lógica para aceitar o arquivo
