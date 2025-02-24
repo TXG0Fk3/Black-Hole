@@ -37,12 +37,11 @@
             FontSize="16"
             Style="{StaticResource BodyTextBlockStyle}"
             Text="" />
-
         <StackPanel
             x:Name="PageVariableContent"
             Grid.Row="3"
-            Orientation="Vertical"
             Margin="0,8,0,0"
+            Orientation="Vertical"
             Spacing="8" />
     </Grid>
 </Page>
