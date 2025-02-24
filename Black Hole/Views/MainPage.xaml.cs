@@ -1,11 +1,10 @@
+using Black_Hole.Enums;
 using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media.Animation;
 using System;
-using System.Collections;
 using System.Linq;
-using System.Reflection;
 
 
 namespace Black_Hole.Views
@@ -30,7 +29,7 @@ namespace Black_Hole.Views
             ToggleButton? previousSelectedNavigationToggleButton = footerNavigationToggleButtons
                 .FirstOrDefault(TB => TB.IsChecked == true && TB != newSelectedToggleButton);
 
-            if (previousSelectedNavigationToggleButton != null) // Se for NULL significa que o usuário só selecionou um botão que já estava selecionado
+            if (previousSelectedNavigationToggleButton != null) // Se for NULL significa que o usuï¿½rio sï¿½ selecionou um botï¿½o que jï¿½ estava selecionado
             {
                 NavigationTransitionInfo transitionInfo = new SlideNavigationTransitionInfo()
                 {
@@ -38,14 +37,13 @@ namespace Black_Hole.Views
                         < Array.IndexOf(footerNavigationToggleButtons, previousSelectedNavigationToggleButton)
                         ? SlideNavigationTransitionEffect.FromLeft
                         : SlideNavigationTransitionEffect.FromRight
-
                 };
 
                 previousSelectedNavigationToggleButton.IsChecked = false;
 
                 NavigationService.Instance.NavigateTo(Type.GetType(newSelectedToggleButton.Tag.ToString()), null, transitionInfo);
-            }    
-            
+            }
+
             newSelectedToggleButton.IsChecked = true;
         }
     }
