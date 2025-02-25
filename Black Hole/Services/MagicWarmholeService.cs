@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Threading.Tasks;
 
 namespace Black_Hole.Services
@@ -25,9 +26,15 @@ namespace Black_Hole.Services
 
         public MagicWormholeService(string pathOrCode)
         {
-            if (File.Exists(pathOrCode))
+            if (File.Exists(pathOrCode) || Directory.Exists(pathOrCode))
             {
                 Path = pathOrCode;
+
+                if (Directory.Exists(pathOrCode))
+                {
+                    ZipFile.CreateFromDirectory(Path, Path + ".zip"); // Trocar para criar em TEMP
+                    Path += ".zip";
+                }
 
                 var fileInfo = new FileInfo(Path);
                 Name = fileInfo.Name;
