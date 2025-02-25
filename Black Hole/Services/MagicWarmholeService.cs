@@ -23,11 +23,11 @@ namespace Black_Hole.Services
 
         private Process _process;
 
-        public MagicWormholeService(string filePathOrCode)
+        public MagicWormholeService(string PathOrCode)
         {
-            if (File.Exists(filePathOrCode))
+            if (File.Exists(PathOrCode))
             {
-                FilePath = filePathOrCode;
+                FilePath = PathOrCode;
 
                 var fileInfo = new FileInfo(FilePath);
                 FileName = fileInfo.Name;
@@ -46,14 +46,14 @@ namespace Black_Hole.Services
             }
             else
             {
-                Code = filePathOrCode;
+                Code = PathOrCode;
 
                 ProcessStart($"receive {Code}");
 
-                var receivedFileInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
+                var receivedInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
 
-                FileName = receivedFileInfo.Split(':')[1].Trim();
-                FileSize = double.Parse(receivedFileInfo.Split('(')[1].Split(" ")[0]);
+                FileName = receivedInfo.Split(':')[1].Trim();
+                FileSize = double.Parse(receivedInfo.Split('(')[1].Split(" ")[0]);
             }
         }
 
