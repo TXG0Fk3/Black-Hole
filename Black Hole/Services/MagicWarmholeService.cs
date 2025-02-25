@@ -7,10 +7,10 @@ namespace Black_Hole.Services
 {
     internal class MagicWormholeService
     {
-        public string FilePath { get; private set; }
+        public string Path { get; private set; }
         public string Code { get; private set; }
-        public string FileName { get; private set; }
-        public double FileSize { get; private set; }
+        public string Name { get; private set; }
+        public double Size { get; private set; }
 
         private ProcessStartInfo _startInfo = new ProcessStartInfo
         {
@@ -23,17 +23,17 @@ namespace Black_Hole.Services
 
         private Process _process;
 
-        public MagicWormholeService(string PathOrCode)
+        public MagicWormholeService(string pathOrCode)
         {
-            if (File.Exists(PathOrCode))
+            if (File.Exists(pathOrCode))
             {
-                FilePath = PathOrCode;
+                Path = pathOrCode;
 
-                var fileInfo = new FileInfo(FilePath);
-                FileName = fileInfo.Name;
-                FileSize = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
+                var fileInfo = new FileInfo(Path);
+                Name = fileInfo.Name;
+                Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
 
-                ProcessStart($"send {FilePath}");
+                ProcessStart($"send {Path}");
 
                 for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
                 {
@@ -46,14 +46,14 @@ namespace Black_Hole.Services
             }
             else
             {
-                Code = PathOrCode;
+                Code = pathOrCode;
 
                 ProcessStart($"receive {Code}");
 
                 var receivedInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
 
-                FileName = receivedInfo.Split(':')[1].Trim();
-                FileSize = double.Parse(receivedInfo.Split('(')[1].Split(" ")[0]);
+                Name = receivedInfo.Split(':')[1].Trim();
+                Size = double.Parse(receivedInfo.Split('(')[1].Split(" ")[0]);
             }
         }
 
