@@ -21,11 +21,11 @@ namespace Black_Hole.Views
             this.InitializeComponent();
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            // O parâmetro é uma tupla que contém o tipo de espera e o caminho para o arquivo
+            // O parâmetro é uma tupla que contém o tipo de espera e um serviço
             if (e.Parameter is Tuple<PendingType, MagicWormholeService> parameter)
             {
                 _pageContext = parameter.Item1;
@@ -41,7 +41,7 @@ namespace Black_Hole.Views
             {
                 case PendingType.SenderWaitingReceiverAcceptance:
                     Title.Text = "Your Transmission Code";
-                    FileDescription.Text = $"{_magicWormholeService.FileName} {_magicWormholeService.FileSize}MB";
+                    FileDescription.Text = $"{_magicWormholeService.Name} {_magicWormholeService.Size}MB";
 
                     QrOrIcon.Child = new Image
                     {
@@ -114,7 +114,7 @@ namespace Black_Hole.Views
 
                 case PendingType.ReceiverRespondingToConfirmation:
                     Title.Text = "Accept File?";
-                    FileDescription.Text = $"{_magicWormholeService.FileName} {_magicWormholeService.FileSize}MB"; // Vai causar uma exceção
+                    FileDescription.Text = $"{_magicWormholeService.Name} {_magicWormholeService.Size}MB"; // Vai causar uma exceção
 
                     var acceptButtonReceiver = new Button()
                     {
