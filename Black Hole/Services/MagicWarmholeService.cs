@@ -21,7 +21,7 @@ namespace Black_Hole.Services
             UseShellExecute = false,
             CreateNoWindow = true,
         };
-
+        
         private Process _process;
 
         public MagicWormholeService(string pathOrCode)
@@ -32,7 +32,7 @@ namespace Black_Hole.Services
 
                 if (Directory.Exists(pathOrCode))
                 {
-                    ZipFile.CreateFromDirectory(Path, Path + ".zip"); // Trocar para criar em TEMP
+                    ZipFile.CreateFromDirectory(Path, Path + ".zip"); // TO-DO: Trocar para criar em TEMP
                     Path += ".zip";
                 }
 
