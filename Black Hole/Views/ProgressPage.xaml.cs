@@ -1,31 +1,66 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
+using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using System;
 
 namespace Black_Hole.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ProgressPage : Page
     {
+        public enum ProgressType
+        {
+            LoadingSendInfo,
+            LoadingSendFolderInfo,
+            LoadingReceiveInfo,
+            SendingFile,
+            ReceivingFile
+        }
+
+        private ProgressType _pageContext;
+        private MagicWormholeService _magicWormholeService;
+
         public ProgressPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // O parâmetro é uma tupla que contém o tipo de progresso e um serviço
+            if (e.Parameter is Tuple<ProgressType, MagicWormholeService> parameter)
+            {
+                _pageContext = parameter.Item1;
+                _magicWormholeService = parameter.Item2;
+                LoadPageContext();
+            }
+        }
+
+        private void LoadPageContext()
+        {
+            switch (_pageContext)
+            {
+                case ProgressType.LoadingSendInfo:
+                    // TO-DO
+                    break;
+
+                case ProgressType.LoadingSendFolderInfo:
+                    // TO-DO
+                    break;
+                
+                case ProgressType.LoadingReceiveInfo:
+                    // TO-DO
+                    break;
+
+                case ProgressType.SendingFile:
+                    // TO-DO
+                    break;
+
+                case ProgressType.ReceivingFile:
+                    // TO-DO
+                    break;
+            }
         }
     }
 }
