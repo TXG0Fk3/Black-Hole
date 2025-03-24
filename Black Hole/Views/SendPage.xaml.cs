@@ -1,4 +1,3 @@
-using Black_Hole.Enums;
 using Black_Hole.Helpers;
 using Black_Hole.Services;
 using Microsoft.UI.Xaml;
@@ -32,7 +31,7 @@ namespace Black_Hole.Views
                 MagicWormholeService magicWormholeService = new(Path);
                 NavigationService.Instance.NavigateTo(
                     typeof(PendingPage),
-                    new Tuple<PendingType, MagicWormholeService>(PendingType.SenderWaitingReceiverAcceptance, magicWormholeService));
+                    new Tuple<PendingPage.PendingType, MagicWormholeService>(PendingPage.PendingType.SenderWaitingReceiverAcceptance, magicWormholeService));
             }
         }
     }
