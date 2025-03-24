@@ -1,4 +1,3 @@
-using Black_Hole.Enums;
 using Black_Hole.Helpers;
 using Black_Hole.Services;
 using Microsoft.UI.Xaml;
@@ -13,6 +12,12 @@ namespace Black_Hole.Views
 {
     public sealed partial class PendingPage : Page
     {
+        public enum PendingType
+        {
+            SenderWaitingReceiverAcceptance, // Indica que o remetente está aguardando que o receptor aceite o envio
+            ReceiverRespondingToConfirmation // Indica que o receptor está respondendo a confirmação (aceitando ou negando)
+        }
+
         private PendingType _pageContext;
         private MagicWormholeService _magicWormholeService;
 
