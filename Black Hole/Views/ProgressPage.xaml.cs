@@ -42,15 +42,19 @@ namespace Black_Hole.Views
             switch (_pageContext)
             {
                 case ProgressType.LoadingSendInfo:
-                    // TO-DO
+                    Title.Text = "Loading File Info";
+                    Description.Text = "Please wait... This may take some time.";
                     break;
 
                 case ProgressType.LoadingSendFolderInfo:
-                    // TO-DO
+                    Icon.Glyph = "\uF012";
+                    Title.Text = "Compressing Folder";
+                    Description.Text = "Please wait... This may take some time.";
                     break;
                 
                 case ProgressType.LoadingReceiveInfo:
-                    // TO-DO
+                    Title.Text = "Loading File Info";
+                    Description.Text = "Please wait... This may take some time.";
                     break;
 
                 case ProgressType.SendingFile:
