@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace Black_Hole.Services
 {
@@ -27,10 +28,21 @@ namespace Black_Hole.Services
         {
             var fileInfo = new FileInfo(Path);
             Name = fileInfo.Name;
-            Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais 
+            Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
+
+            ProcessStart($"send {Path}");
+
+            for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
+            {
+                var line = _process.StandardError.ReadLineAsync().Result;
+                if (i == 1)
+                {
+                    Code = line.Split(':')[1].Trim();
+                }
+            }
         }
 
-        public void LoadSendFolderInfo()
+        public async Task LoadSendFolderInfo()
         {
             ZipFile.CreateFromDirectory(Path, Path + ".zip"); // TO-DO: Trocar para criar em TEMP
             Path += ".zip";
@@ -42,7 +54,7 @@ namespace Black_Hole.Services
         {
             ProcessStart($"receive {Code}");
 
-            var receivedInfo = _process.StandardError.ReadLine(); // !! Talvez precise se tornar assíncrono para evitar travamentos na UI !!
+            var receivedInfo = _process.StandardError.ReadLineAsync().Result;
 
             Name = receivedInfo.Split(':')[1].Trim();
             Size = double.Parse(receivedInfo.Split('(')[1].Split(" ")[0]);
@@ -50,17 +62,6 @@ namespace Black_Hole.Services
 
         public void SendFile()
         {
-            ProcessStart($"send {Path}");
-
-            for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
-            {
-                var line = _process.StandardError.ReadLine();
-                if (i == 1)
-                {
-                    Code = line.Split(':')[1].Trim();
-                }
-            }
-
             // To Do: Implementar a lógica para enviar o arquivo
         }
 
