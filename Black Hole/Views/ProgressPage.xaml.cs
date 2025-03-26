@@ -43,26 +43,29 @@ namespace Black_Hole.Views
             {
                 case ProgressType.LoadingSendInfo:
                     Title.Text = "Loading File Info";
-                    Description.Text = "Please wait... This may take some time.";
+
+                    _magicWormholeService.LoadSendInfo();
                     break;
 
                 case ProgressType.LoadingSendFolderInfo:
                     Icon.Glyph = "\uF012";
                     Title.Text = "Compressing Folder";
-                    Description.Text = "Please wait... This may take some time.";
+
+                    _magicWormholeService.LoadSendFolderInfo();
                     break;
                 
                 case ProgressType.LoadingReceiveInfo:
                     Title.Text = "Loading File Info";
-                    Description.Text = "Please wait... This may take some time.";
+                    
+                    _magicWormholeService.LoadReceiveInfo();
                     break;
 
                 case ProgressType.SendingFile:
-                    // TO-DO
+                    Title.Text = "Sending File";
                     break;
 
                 case ProgressType.ReceivingFile:
-                    // TO-DO
+                    Title.Text = "Receiving File";
                     break;
             }
         }
