@@ -5,14 +5,14 @@ using System.IO.Compression;
 
 namespace Black_Hole.Services
 {
-    internal class MagicWormholeService
+    internal class MagicWormholeService(string path = "", string code = "")
     {
-        public string Path { get; private set; }
-        public string Code { get; private set; }
+        public string Path { get; private set; } = path;
+        public string Code { get; private set; } = code;
         public string Name { get; private set; }
         public double Size { get; private set; }
 
-        private ProcessStartInfo _startInfo = new ProcessStartInfo
+        private readonly ProcessStartInfo _startInfo = new()
         {
             FileName = "wormhole.exe",
             RedirectStandardError = true,
@@ -22,18 +22,6 @@ namespace Black_Hole.Services
         };
         
         private Process _process;
-
-        public MagicWormholeService(string pathOrCode)
-        {
-            if (File.Exists(pathOrCode) || Directory.Exists(pathOrCode))
-            {
-                Path = pathOrCode;
-            }
-            else
-            {
-                Code = pathOrCode;
-            }
-        }
 
         public void LoadSendInfo()
         {
@@ -45,18 +33,7 @@ namespace Black_Hole.Services
 
             var fileInfo = new FileInfo(Path);
             Name = fileInfo.Name;
-            Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
-
-            ProcessStart($"send {Path}");
-
-            for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
-            {
-                var line = _process.StandardError.ReadLine();
-                if (i == 1)
-                {
-                    Code = line.Split(':')[1].Trim();
-                }
-            }
+            Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais 
         }
 
         public void LoadReceiveInfo()
@@ -71,6 +48,17 @@ namespace Black_Hole.Services
 
         public void SendFile()
         {
+            ProcessStart($"send {Path}");
+
+            for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
+            {
+                var line = _process.StandardError.ReadLine();
+                if (i == 1)
+                {
+                    Code = line.Split(':')[1].Trim();
+                }
+            }
+
             // To Do: Implementar a lógica para enviar o arquivo
         }
 
