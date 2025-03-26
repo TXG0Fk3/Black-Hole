@@ -16,22 +16,22 @@ namespace Black_Hole.Views
 
         private async void FileButton_Click(object sender, RoutedEventArgs e)
         {
-            HandlePathSelection(await FilePickerHelper.PickFile(App.MainWindow));
+            HandlePathSelection(await FilePickerHelper.PickFile(App.MainWindow), ProgressPage.ProgressType.LoadingSendInfo);
         }
 
         private async void FolderButton_Click(object sender, RoutedEventArgs e)
         {
-            HandlePathSelection(await FilePickerHelper.PickFolder(App.MainWindow));
+            HandlePathSelection(await FilePickerHelper.PickFolder(App.MainWindow), ProgressPage.ProgressType.LoadingSendFolderInfo);
         }
 
-        private void HandlePathSelection(string? Path)
+        private void HandlePathSelection(string? Path, ProgressPage.ProgressType progressType)
         {
             if (Path != null)
             {
                 MagicWormholeService magicWormholeService = new(Path);
                 NavigationService.Instance.NavigateTo(
-                    typeof(PendingPage),
-                    new Tuple<PendingPage.PendingType, MagicWormholeService>(PendingPage.PendingType.SenderWaitingReceiverAcceptance, magicWormholeService));
+                    typeof(ProgressPage),
+                    new Tuple<ProgressPage.ProgressType, MagicWormholeService>(progressType, magicWormholeService));
             }
         }
     }
