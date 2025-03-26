@@ -30,11 +30,11 @@ namespace Black_Hole.Services
             Name = fileInfo.Name;
             Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais
 
-            ProcessStart($"send {Path}");
+            ProcessStart($"send --no-qr \"{Path}\"");
 
             for (int i = 0; i < 4; i++) // Coleta o código e descarta o restante das linhas pois são inúteis
             {
-                var line = _process.StandardError.ReadLineAsync().Result;
+                var line = _process.StandardError.ReadLine();
                 if (i == 1)
                 {
                     Code = line.Split(':')[1].Trim();
@@ -54,7 +54,7 @@ namespace Black_Hole.Services
         {
             ProcessStart($"receive {Code}");
 
-            var receivedInfo = _process.StandardError.ReadLineAsync().Result;
+            var receivedInfo = _process.StandardError.ReadLine();
 
             Name = receivedInfo.Split(':')[1].Trim();
             Size = double.Parse(receivedInfo.Split('(')[1].Split(" ")[0]);
