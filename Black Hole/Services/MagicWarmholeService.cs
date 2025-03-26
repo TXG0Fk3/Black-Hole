@@ -25,15 +25,17 @@ namespace Black_Hole.Services
 
         public void LoadSendInfo()
         {
-            if (Directory.Exists(Path))
-            {
-                ZipFile.CreateFromDirectory(Path, Path + ".zip"); // TO-DO: Trocar para criar em TEMP
-                Path += ".zip";
-            }
-
             var fileInfo = new FileInfo(Path);
             Name = fileInfo.Name;
             Size = Math.Round(fileInfo.Length / 1000000.0, 3); // Converte em MB com 3 casas decimais 
+        }
+
+        public void LoadSendFolderInfo()
+        {
+            ZipFile.CreateFromDirectory(Path, Path + ".zip"); // TO-DO: Trocar para criar em TEMP
+            Path += ".zip";
+
+            LoadSendInfo();
         }
 
         public void LoadReceiveInfo()
