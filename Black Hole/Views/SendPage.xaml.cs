@@ -24,11 +24,11 @@ namespace Black_Hole.Views
             HandlePathSelection(await FilePickerHelper.PickFolder(App.MainWindow), ProgressPage.ProgressType.LoadingSendFolderInfo);
         }
 
-        private void HandlePathSelection(string? Path, ProgressPage.ProgressType progressType)
+        private void HandlePathSelection(string? path, ProgressPage.ProgressType progressType)
         {
-            if (Path != null)
+            if (path != null)
             {
-                MagicWormholeService magicWormholeService = new(Path);
+                MagicWormholeService magicWormholeService = new(path: path);
                 NavigationService.Instance.NavigateTo(
                     typeof(ProgressPage),
                     new Tuple<ProgressPage.ProgressType, MagicWormholeService>(progressType, magicWormholeService));
