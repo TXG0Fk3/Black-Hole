@@ -15,6 +15,10 @@ namespace Black_Hole.Views
             this.InitializeComponent();
             NavigationService.Instance.Initialize(ContentFrame);
             NavigationService.Instance.NavigateTo(typeof(SendPage), null);
+
+            NavigationService.Instance.NavigateTo(typeof(PendingPage),
+                new Tuple<PendingPage.PendingType, MagicWormholeService>
+                (PendingPage.PendingType.SenderWaitingReceiverAcceptance, new MagicWormholeService("a")));
         }
 
         private void ToggleButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

@@ -2,7 +2,8 @@ using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
-using static Black_Hole.Views.PendingPage;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Black_Hole.Views
 {
@@ -34,18 +35,20 @@ namespace Black_Hole.Views
             {
                 _pageContext = parameter.Item1;
                 _magicWormholeService = parameter.Item2;
-                LoadPageContext();
+                _ = LoadPageContextAsync();
             }
         }
 
-        private void LoadPageContext()
+        private async Task LoadPageContextAsync()
         {
+            Debug.WriteLine("LoadPageContextAsync started");
             switch (_pageContext)
             {
                 case ProgressType.LoadingSendInfo:
                     Title.Text = "Loading File Info";
 
                     _magicWormholeService.LoadSendInfo();
+                    await Task.Delay(1000); // TO-DO: Trocar por algo melhor (sem esse delay o Navigate seguinte não funciona);
 
                     NavigateToPendingPage(PendingPage.PendingType.SenderWaitingReceiverAcceptance);
                     break;
@@ -54,7 +57,7 @@ namespace Black_Hole.Views
                     Icon.Glyph = "\uF012";
                     Title.Text = "Compressing Folder";
 
-                    _magicWormholeService.LoadSendFolderInfo();
+                    await _magicWormholeService.LoadSendFolderInfo();
 
                     NavigateToPendingPage(PendingPage.PendingType.SenderWaitingReceiverAcceptance);
                     break;
@@ -75,12 +78,13 @@ namespace Black_Hole.Views
                     Title.Text = "Receiving File";
                     break;
             }
+            Debug.WriteLine("LoadPageContextAsync ended");
         }
 
         private void NavigateToPendingPage(PendingPage.PendingType pendingType)
         {
             NavigationService.Instance.NavigateTo(typeof(PendingPage),
-                new Tuple<MagicWormholeService, PendingPage.PendingType>(_magicWormholeService, pendingType));
+                new Tuple<PendingPage.PendingType, MagicWormholeService>(pendingType, _magicWormholeService));
         }
     }
 }
