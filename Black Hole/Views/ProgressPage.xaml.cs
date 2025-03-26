@@ -2,6 +2,7 @@ using Black_Hole.Services;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
+using static Black_Hole.Views.PendingPage;
 
 namespace Black_Hole.Views
 {
@@ -45,6 +46,8 @@ namespace Black_Hole.Views
                     Title.Text = "Loading File Info";
 
                     _magicWormholeService.LoadSendInfo();
+
+                    NavigateToPendingPage(PendingPage.PendingType.SenderWaitingReceiverAcceptance);
                     break;
 
                 case ProgressType.LoadingSendFolderInfo:
@@ -52,12 +55,16 @@ namespace Black_Hole.Views
                     Title.Text = "Compressing Folder";
 
                     _magicWormholeService.LoadSendFolderInfo();
+
+                    NavigateToPendingPage(PendingPage.PendingType.SenderWaitingReceiverAcceptance);
                     break;
-                
+
                 case ProgressType.LoadingReceiveInfo:
                     Title.Text = "Loading File Info";
-                    
+
                     _magicWormholeService.LoadReceiveInfo();
+
+                    NavigateToPendingPage(PendingPage.PendingType.ReceiverRespondingToConfirmation);
                     break;
 
                 case ProgressType.SendingFile:
@@ -68,6 +75,12 @@ namespace Black_Hole.Views
                     Title.Text = "Receiving File";
                     break;
             }
+        }
+
+        private void NavigateToPendingPage(PendingPage.PendingType pendingType)
+        {
+            NavigationService.Instance.NavigateTo(typeof(PendingPage),
+                new Tuple<MagicWormholeService, PendingPage.PendingType>(_magicWormholeService, pendingType));
         }
     }
 }
